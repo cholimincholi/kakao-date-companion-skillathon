@@ -358,6 +358,11 @@ function researchPlaces(signals, rankedAreas, externalSearchMode, memory) {
           "https://www.diningcode.com/list.dc?query=%EC%84%B1%EC%88%98%EC%97%AD++%EC%A1%B0%EC%9A%A9%ED%95%9C+%EC%86%8C%EA%B0%9C%ED%8C%85",
           "https://fd.jhsunjane.com/52"
         ],
+        sourceAnalysis: {
+          naverMap: "needs_live_verification: 영업시간, 현재 평점, 예약/웨이팅, 거리 정보를 네이버 지도에서 확인해야 합니다.",
+          naverBlog: "bundled_reference: 성수역 근처 가성비 이탈리안/데이트 후보로 소개된 블로그 맥락을 사용했습니다.",
+          instagram: "needs_live_verification: 공개 게시물/위치 태그에서 최근 분위기, 사진 밀도, 웨이팅 언급을 확인해야 합니다."
+        },
         verificationNeeded: ["현재 영업시간", "예약 가능 여부", "웨이팅", "최신 메뉴 가격"]
       },
       {
@@ -367,6 +372,11 @@ function researchPlaces(signals, rankedAreas, externalSearchMode, memory) {
         why: "성수/서울숲 동선에서 파스타와 식사 메뉴를 함께 고려할 수 있는 후보입니다.",
         oneLineReview: "번들 리서치 기준: 역 접근성과 파스타 메뉴가 확인되어 성수 저녁 식사 후보로 쓸 수 있습니다.",
         sources: ["https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/"],
+        sourceAnalysis: {
+          naverMap: "needs_live_verification: 지도 기준 도보 거리, 현재 영업시간, 메뉴/리뷰 최신성을 확인해야 합니다.",
+          naverBlog: "provided_reference: 장소 소개 페이지의 접근성/메뉴 정보를 사용했습니다.",
+          instagram: "needs_live_verification: 성수/서울숲 위치 태그의 최근 사진과 혼잡도를 확인해야 합니다."
+        },
         verificationNeeded: ["현재 영업시간", "웨이팅", "좌석 분위기", "메뉴 변동"]
       }
     ],
@@ -378,6 +388,11 @@ function researchPlaces(signals, rankedAreas, externalSearchMode, memory) {
         why: "조용하고 자리 넓은 카페를 원한다는 대화 조건에 가장 직접적으로 맞는 후보입니다.",
         oneLineReview: "번들 리서치 기준: 넓고 조용한 카페로 소개되어 대화 중심의 저녁 카페 코스에 어울립니다.",
         sources: ["https://euphoria25.tistory.com/137"],
+        sourceAnalysis: {
+          naverMap: "needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.",
+          naverBlog: "bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.",
+          instagram: "needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다."
+        },
         verificationNeeded: ["현재 영업시간", "좌석 여유", "실제 소음 수준"]
       }
     ],
@@ -389,6 +404,11 @@ function researchPlaces(signals, rankedAreas, externalSearchMode, memory) {
         why: "비가 오거나 야외 산책이 부담될 때 짧은 동선으로 대체할 수 있는 실내 활동 후보입니다.",
         oneLineReview: "번들 리서치 기준: 성수역 근처 실내 활동으로 날씨 영향을 줄이는 대안입니다.",
         sources: ["https://ilovefood.tistory.com/v/174"],
+        sourceAnalysis: {
+          naverMap: "needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.",
+          naverBlog: "bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.",
+          instagram: "needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다."
+        },
         verificationNeeded: ["현재 영업시간", "가격", "혼잡도"]
       }
     ],
@@ -486,6 +506,11 @@ function buildCourses(signals, persona, placeResearch) {
         ...(primaryCafe?.sources || []),
         ...(primaryActivity?.sources || [])
       ]),
+      sourceAnalysis: [
+        primaryRestaurant?.sourceAnalysis,
+        primaryCafe?.sourceAnalysis,
+        primaryActivity?.sourceAnalysis
+      ].filter(Boolean),
       areaRank: rankedAreas[0],
       verificationNeeded: unique([
         ...(primaryRestaurant?.verificationNeeded || []),
@@ -514,6 +539,11 @@ function buildCourses(signals, persona, placeResearch) {
         ...(primaryActivity?.sources || []),
         ...(primaryCafe?.sources || [])
       ]),
+      sourceAnalysis: [
+        secondaryRestaurant?.sourceAnalysis,
+        primaryActivity?.sourceAnalysis,
+        primaryCafe?.sourceAnalysis
+      ].filter(Boolean),
       areaRank: rankedAreas[0],
       verificationNeeded: unique([
         ...(secondaryRestaurant?.verificationNeeded || []),
@@ -752,6 +782,9 @@ ${placeResearch.restaurants.map((place) => `- ${place.name}
   - why: ${place.why}
   - one_line_review: ${place.oneLineReview}
   - sources: ${place.sources.join(", ")}
+  - naver_map: ${place.sourceAnalysis.naverMap}
+  - naver_blog: ${place.sourceAnalysis.naverBlog}
+  - instagram: ${place.sourceAnalysis.instagram}
   - memory_status: ${place.memoryStatus}
   - memory_mention_count: ${place.memoryMentionCount}
   - verification_needed: ${place.verificationNeeded.join(", ")}
@@ -762,6 +795,9 @@ ${placeResearch.cafes.map((place) => `- ${place.name}
   - why: ${place.why}
   - one_line_review: ${place.oneLineReview}
   - sources: ${place.sources.join(", ")}
+  - naver_map: ${place.sourceAnalysis.naverMap}
+  - naver_blog: ${place.sourceAnalysis.naverBlog}
+  - instagram: ${place.sourceAnalysis.instagram}
   - memory_status: ${place.memoryStatus}
   - memory_mention_count: ${place.memoryMentionCount}
   - verification_needed: ${place.verificationNeeded.join(", ")}
@@ -772,6 +808,9 @@ ${placeResearch.activities.map((place) => `- ${place.name}
   - why: ${place.why}
   - one_line_review: ${place.oneLineReview}
   - sources: ${place.sources.join(", ")}
+  - naver_map: ${place.sourceAnalysis.naverMap}
+  - naver_blog: ${place.sourceAnalysis.naverBlog}
+  - instagram: ${place.sourceAnalysis.instagram}
   - memory_status: ${place.memoryStatus}
   - memory_mention_count: ${place.memoryMentionCount}
   - verification_needed: ${place.verificationNeeded.join(", ")}
@@ -797,6 +836,11 @@ ${reviewedCourses.map((course, index) => `### ${index + 1}. ${course.title}
 ${course.placeReason.map((reason) => `  - ${reason}`).join("\n")}
 - 리뷰/블로그 한 줄: ${course.reviewOneLiner}
 - 출처: ${course.sources.join(", ") || "검색 필요"}
+- 네이버 지도/블로그/인스타 분석:
+${course.sourceAnalysis.map((source, sourceIndex) => `  - stop ${sourceIndex + 1}
+    - naver_map: ${source.naverMap}
+    - naver_blog: ${source.naverBlog}
+    - instagram: ${source.instagram}`).join("\n")}
 - 확인 필요: ${course.verificationNeeded.join(", ")}
 `).join("\n")}
 

@@ -69,6 +69,9 @@
   - why: 파스타 선호, 조용한 분위기, 중저가/부담 낮은 데이트 조건에 맞는 후보입니다.
   - one_line_review: 번들 리서치 기준: 테이블 간격과 조용한 분위기 언급이 있어 편한 저녁 데이트 후보로 적합합니다.
   - sources: https://www.diningcode.com/list.dc?query=%EC%84%B1%EC%88%98%EC%97%AD++%EC%A1%B0%EC%9A%A9%ED%95%9C+%EC%86%8C%EA%B0%9C%ED%8C%85, https://fd.jhsunjane.com/52
+  - naver_map: needs_live_verification: 영업시간, 현재 평점, 예약/웨이팅, 거리 정보를 네이버 지도에서 확인해야 합니다.
+  - naver_blog: bundled_reference: 성수역 근처 가성비 이탈리안/데이트 후보로 소개된 블로그 맥락을 사용했습니다.
+  - instagram: needs_live_verification: 공개 게시물/위치 태그에서 최근 분위기, 사진 밀도, 웨이팅 언급을 확인해야 합니다.
   - memory_status: candidate
   - memory_mention_count: 1
   - verification_needed: 현재 영업시간, 예약 가능 여부, 웨이팅, 최신 메뉴 가격
@@ -76,6 +79,9 @@
   - why: 성수/서울숲 동선에서 파스타와 식사 메뉴를 함께 고려할 수 있는 후보입니다.
   - one_line_review: 번들 리서치 기준: 역 접근성과 파스타 메뉴가 확인되어 성수 저녁 식사 후보로 쓸 수 있습니다.
   - sources: https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/
+  - naver_map: needs_live_verification: 지도 기준 도보 거리, 현재 영업시간, 메뉴/리뷰 최신성을 확인해야 합니다.
+  - naver_blog: provided_reference: 장소 소개 페이지의 접근성/메뉴 정보를 사용했습니다.
+  - instagram: needs_live_verification: 성수/서울숲 위치 태그의 최근 사진과 혼잡도를 확인해야 합니다.
   - memory_status: candidate
   - memory_mention_count: 1
   - verification_needed: 현재 영업시간, 웨이팅, 좌석 분위기, 메뉴 변동
@@ -86,6 +92,9 @@
   - why: 조용하고 자리 넓은 카페를 원한다는 대화 조건에 가장 직접적으로 맞는 후보입니다.
   - one_line_review: 번들 리서치 기준: 넓고 조용한 카페로 소개되어 대화 중심의 저녁 카페 코스에 어울립니다.
   - sources: https://euphoria25.tistory.com/137
+  - naver_map: needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.
+  - naver_blog: bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.
+  - instagram: needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다.
   - memory_status: candidate
   - memory_mention_count: 1
   - verification_needed: 현재 영업시간, 좌석 여유, 실제 소음 수준
@@ -96,6 +105,9 @@
   - why: 비가 오거나 야외 산책이 부담될 때 짧은 동선으로 대체할 수 있는 실내 활동 후보입니다.
   - one_line_review: 번들 리서치 기준: 성수역 근처 실내 활동으로 날씨 영향을 줄이는 대안입니다.
   - sources: https://ilovefood.tistory.com/v/174
+  - naver_map: needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.
+  - naver_blog: bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.
+  - instagram: needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다.
   - memory_status: candidate
   - memory_mention_count: 1
   - verification_needed: 현재 영업시간, 가격, 혼잡도
@@ -109,9 +121,9 @@
 ## Search Tracking
 - unique_queries_in_db: 3
 - recent_queries:
-  - 성수 저녁 파스타 조용한 카페 데이트 (count 1, last 2026-05-16T00:00:00.000Z)
-  - 성수 비오는 날 실내 데이트 블로그 리뷰 (count 1, last 2026-05-16T00:00:00.000Z)
-  - 성수 역 근처 파스타 예약 데이트 (count 1, last 2026-05-16T00:00:00.000Z)
+  - 성수 저녁 파스타 조용한 카페 데이트 (count 2, last 2026-05-16T00:00:00.000Z)
+  - 성수 비오는 날 실내 데이트 블로그 리뷰 (count 2, last 2026-05-16T00:00:00.000Z)
+  - 성수 역 근처 파스타 예약 데이트 (count 2, last 2026-05-16T00:00:00.000Z)
 
 ## Recommended Date Courses
 ### 1. 성수 비 오는 날 실내 중심 코스
@@ -127,6 +139,19 @@
   - 조용하고 자리 넓은 카페를 원한다는 대화 조건에 가장 직접적으로 맞는 후보입니다.
 - 리뷰/블로그 한 줄: 번들 리서치 기준: 역 접근성과 파스타 메뉴가 확인되어 성수 저녁 식사 후보로 쓸 수 있습니다. / 번들 리서치 기준: 성수역 근처 실내 활동으로 날씨 영향을 줄이는 대안입니다. / 번들 리서치 기준: 넓고 조용한 카페로 소개되어 대화 중심의 저녁 카페 코스에 어울립니다.
 - 출처: https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/, https://ilovefood.tistory.com/v/174, https://euphoria25.tistory.com/137
+- 네이버 지도/블로그/인스타 분석:
+  - stop 1
+    - naver_map: needs_live_verification: 지도 기준 도보 거리, 현재 영업시간, 메뉴/리뷰 최신성을 확인해야 합니다.
+    - naver_blog: provided_reference: 장소 소개 페이지의 접근성/메뉴 정보를 사용했습니다.
+    - instagram: needs_live_verification: 성수/서울숲 위치 태그의 최근 사진과 혼잡도를 확인해야 합니다.
+  - stop 2
+    - naver_map: needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.
+    - naver_blog: bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.
+    - instagram: needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다.
+  - stop 3
+    - naver_map: needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.
+    - naver_blog: bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.
+    - instagram: needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다.
 - 확인 필요: 현재 영업시간, 웨이팅, 좌석 분위기, 메뉴 변동, 가격, 혼잡도, 좌석 여유, 실제 소음 수준
 
 ### 2. 성수 저녁 식사 + 카페 안정 코스
@@ -142,6 +167,19 @@
   - 비가 오거나 야외 산책이 부담될 때 짧은 동선으로 대체할 수 있는 실내 활동 후보입니다.
 - 리뷰/블로그 한 줄: 번들 리서치 기준: 테이블 간격과 조용한 분위기 언급이 있어 편한 저녁 데이트 후보로 적합합니다. / 번들 리서치 기준: 넓고 조용한 카페로 소개되어 대화 중심의 저녁 카페 코스에 어울립니다. / 번들 리서치 기준: 성수역 근처 실내 활동으로 날씨 영향을 줄이는 대안입니다.
 - 출처: https://www.diningcode.com/list.dc?query=%EC%84%B1%EC%88%98%EC%97%AD++%EC%A1%B0%EC%9A%A9%ED%95%9C+%EC%86%8C%EA%B0%9C%ED%8C%85, https://fd.jhsunjane.com/52, https://euphoria25.tistory.com/137, https://ilovefood.tistory.com/v/174
+- 네이버 지도/블로그/인스타 분석:
+  - stop 1
+    - naver_map: needs_live_verification: 영업시간, 현재 평점, 예약/웨이팅, 거리 정보를 네이버 지도에서 확인해야 합니다.
+    - naver_blog: bundled_reference: 성수역 근처 가성비 이탈리안/데이트 후보로 소개된 블로그 맥락을 사용했습니다.
+    - instagram: needs_live_verification: 공개 게시물/위치 태그에서 최근 분위기, 사진 밀도, 웨이팅 언급을 확인해야 합니다.
+  - stop 2
+    - naver_map: needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.
+    - naver_blog: bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.
+    - instagram: needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다.
+  - stop 3
+    - naver_map: needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.
+    - naver_blog: bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.
+    - instagram: needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다.
 - 확인 필요: 현재 영업시간, 예약 가능 여부, 웨이팅, 최신 메뉴 가격, 좌석 여유, 실제 소음 수준, 가격, 혼잡도
 
 
@@ -206,7 +244,7 @@
 - memory_file: data/date-memory.json
 - remembered_courses: 2
 - remembered_places: 4
-- persona_snapshots: 1
+- persona_snapshots: 2
 - latest_course_statuses:
   - 성수 비 오는 날 실내 중심 코스: suggested, score 100, places 연남토마 성수점 / 히어로보드게임카페 성수점 / 성수 비아트
   - 성수 저녁 식사 + 카페 안정 코스: suggested, score 95, places 투파인드피터 서울성수점 / 성수 비아트 / 히어로보드게임카페 성수점
@@ -313,6 +351,11 @@
           "https://www.diningcode.com/list.dc?query=%EC%84%B1%EC%88%98%EC%97%AD++%EC%A1%B0%EC%9A%A9%ED%95%9C+%EC%86%8C%EA%B0%9C%ED%8C%85",
           "https://fd.jhsunjane.com/52"
         ],
+        "sourceAnalysis": {
+          "naverMap": "needs_live_verification: 영업시간, 현재 평점, 예약/웨이팅, 거리 정보를 네이버 지도에서 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 성수역 근처 가성비 이탈리안/데이트 후보로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 게시물/위치 태그에서 최근 분위기, 사진 밀도, 웨이팅 언급을 확인해야 합니다."
+        },
         "verificationNeeded": [
           "현재 영업시간",
           "예약 가능 여부",
@@ -336,6 +379,11 @@
         "sources": [
           "https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/"
         ],
+        "sourceAnalysis": {
+          "naverMap": "needs_live_verification: 지도 기준 도보 거리, 현재 영업시간, 메뉴/리뷰 최신성을 확인해야 합니다.",
+          "naverBlog": "provided_reference: 장소 소개 페이지의 접근성/메뉴 정보를 사용했습니다.",
+          "instagram": "needs_live_verification: 성수/서울숲 위치 태그의 최근 사진과 혼잡도를 확인해야 합니다."
+        },
         "verificationNeeded": [
           "현재 영업시간",
           "웨이팅",
@@ -361,6 +409,11 @@
         "sources": [
           "https://euphoria25.tistory.com/137"
         ],
+        "sourceAnalysis": {
+          "naverMap": "needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다."
+        },
         "verificationNeeded": [
           "현재 영업시간",
           "좌석 여유",
@@ -385,6 +438,11 @@
         "sources": [
           "https://ilovefood.tistory.com/v/174"
         ],
+        "sourceAnalysis": {
+          "naverMap": "needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다."
+        },
         "verificationNeeded": [
           "현재 영업시간",
           "가격",
@@ -541,6 +599,18 @@
             "approvalScore": 100,
             "approvalDecision": "approve",
             "reason": "current_export_analysis"
+          },
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 100,
+            "approvalDecision": "approve",
+            "reason": "persona_update_rescore"
+          },
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 100,
+            "approvalDecision": "approve",
+            "reason": "current_export_analysis"
           }
         ],
         "searchQueries": [
@@ -568,6 +638,18 @@
         "notes": [],
         "lastRescoredAt": "2026-05-16T00:00:00.000Z",
         "scoreHistory": [
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 100,
+            "approvalDecision": "approve",
+            "reason": "persona_update_rescore"
+          },
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 95,
+            "approvalDecision": "approve",
+            "reason": "current_export_analysis"
+          },
           {
             "at": "2026-05-16T00:00:00.000Z",
             "approvalScore": 100,
@@ -657,24 +739,42 @@
           "캐주얼하고 짧은 톤",
           "짧은 문장 선호"
         ]
+      },
+      {
+        "at": "2026-05-16T00:00:00.000Z",
+        "partnerConfidence": "medium_high",
+        "partnerSummary": "조용하고 좌석이 편한 장소를 선호할 가능성이 높음; 긴 도보 이동보다 역 근처의 짧은 동선을 선호함; 가격 부담이 큰 장소는 피하고 중저가 선택지를 선호함; 오후 늦게 또는 저녁 중심의 데이트가 현재 일정에 맞음; 파스타, 카페 관련 장소에 반응이 좋음",
+        "partnerTone": [
+          "부드러운 동의 표현 사용",
+          "부담을 낮추는 표현 선호"
+        ],
+        "myConfidence": "medium_high",
+        "mySummary": "먼저 후보를 열어두고 묻는 편; 식사와 카페처럼 간단한 흐름으로 제안; 상황 변수를 챙기는 편",
+        "myTone": [
+          "상대 의견을 묻는 제안형",
+          "부드러운 동의 표현 사용",
+          "부담을 낮추는 표현 선호",
+          "캐주얼하고 짧은 톤",
+          "짧은 문장 선호"
+        ]
       }
     ],
     "searchHistory": [
       {
         "query": "성수 저녁 파스타 조용한 카페 데이트",
-        "count": 1,
+        "count": 2,
         "firstUsedAt": "2026-05-16T00:00:00.000Z",
         "lastUsedAt": "2026-05-16T00:00:00.000Z"
       },
       {
         "query": "성수 비오는 날 실내 데이트 블로그 리뷰",
-        "count": 1,
+        "count": 2,
         "firstUsedAt": "2026-05-16T00:00:00.000Z",
         "lastUsedAt": "2026-05-16T00:00:00.000Z"
       },
       {
         "query": "성수 역 근처 파스타 예약 데이트",
-        "count": 1,
+        "count": 2,
         "firstUsedAt": "2026-05-16T00:00:00.000Z",
         "lastUsedAt": "2026-05-16T00:00:00.000Z"
       }
@@ -701,6 +801,23 @@
         "https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/",
         "https://ilovefood.tistory.com/v/174",
         "https://euphoria25.tistory.com/137"
+      ],
+      "sourceAnalysis": [
+        {
+          "naverMap": "needs_live_verification: 지도 기준 도보 거리, 현재 영업시간, 메뉴/리뷰 최신성을 확인해야 합니다.",
+          "naverBlog": "provided_reference: 장소 소개 페이지의 접근성/메뉴 정보를 사용했습니다.",
+          "instagram": "needs_live_verification: 성수/서울숲 위치 태그의 최근 사진과 혼잡도를 확인해야 합니다."
+        },
+        {
+          "naverMap": "needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다."
+        },
+        {
+          "naverMap": "needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다."
+        }
       ],
       "areaRank": {
         "area": "성수",
@@ -761,6 +878,23 @@
         "https://fd.jhsunjane.com/52",
         "https://euphoria25.tistory.com/137",
         "https://ilovefood.tistory.com/v/174"
+      ],
+      "sourceAnalysis": [
+        {
+          "naverMap": "needs_live_verification: 영업시간, 현재 평점, 예약/웨이팅, 거리 정보를 네이버 지도에서 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 성수역 근처 가성비 이탈리안/데이트 후보로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 게시물/위치 태그에서 최근 분위기, 사진 밀도, 웨이팅 언급을 확인해야 합니다."
+        },
+        {
+          "naverMap": "needs_live_verification: 영업시간, 좌석/혼잡 리뷰, 성수역 도보 거리를 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 넓고 조용한 성수 카페로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 위치 태그에서 좌석/디저트/분위기 사진을 확인해야 합니다."
+        },
+        {
+          "naverMap": "needs_live_verification: 현재 운영시간, 가격, 성수역 도보 거리, 방문자 리뷰를 확인해야 합니다.",
+          "naverBlog": "bundled_reference: 성수역 근처 실내 보드게임 활동으로 소개된 블로그 맥락을 사용했습니다.",
+          "instagram": "needs_live_verification: 공개 태그에서 내부 분위기와 최근 방문 반응을 확인해야 합니다."
+        }
       ],
       "areaRank": {
         "area": "성수",

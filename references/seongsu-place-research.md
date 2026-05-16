@@ -14,6 +14,10 @@ Bundled sample references for deterministic Skillathon demos. These are not a re
   - https://www.diningcode.com/list.dc?query=%EC%84%B1%EC%88%98%EC%97%AD++%EC%A1%B0%EC%9A%A9%ED%95%9C+%EC%86%8C%EA%B0%9C%ED%8C%85
   - https://fd.jhsunjane.com/52
 - verification_needed: current opening hours, reservation, menu price, wait time
+- source_channel_status:
+  - naver_map: needs live verification for hours, map distance, visitor reviews, reservation/waiting hints
+  - naver_blog: bundled/provided blog context exists
+  - instagram: needs live verification from public location/tag posts only
 
 ### 연남토마 성수점
 - type: restaurant
@@ -23,6 +27,10 @@ Bundled sample references for deterministic Skillathon demos. These are not a re
 - sources:
   - https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/
 - verification_needed: current opening hours, menu availability, wait time
+- source_channel_status:
+  - naver_map: needs live verification for hours, distance, menu/review freshness
+  - naver_blog: provided reference page exists
+  - instagram: needs live verification from public location/tag posts only
 
 ## Cafe Candidates
 
@@ -34,6 +42,10 @@ Bundled sample references for deterministic Skillathon demos. These are not a re
 - sources:
   - https://euphoria25.tistory.com/137
 - verification_needed: current opening hours, seat availability, noise level
+- source_channel_status:
+  - naver_map: needs live verification for hours, seating/crowding reviews, walking distance
+  - naver_blog: bundled blog context exists
+  - instagram: needs live verification from public location/tag posts only
 
 ## Activity Candidates
 
@@ -45,3 +57,7 @@ Bundled sample references for deterministic Skillathon demos. These are not a re
 - sources:
   - https://ilovefood.tistory.com/v/174
 - verification_needed: current opening hours, crowding, price
+- source_channel_status:
+  - naver_map: needs live verification for hours, price, distance, visitor reviews
+  - naver_blog: bundled blog context exists
+  - instagram: needs live verification from public location/tag posts only

@@ -50,6 +50,7 @@ The Skill produces:
 - Search Queries Used or To Approve
 - Location Memory and Area Ranking
 - Place Research Candidates
+- Naver Map / Naver Blog / Instagram source status
 - Recommended Date Courses
 - Persona Approval Review
 - Approval Rate
@@ -153,6 +154,8 @@ It does not store raw KakaoTalk messages. The DB lets future runs avoid repeatin
 - Do not send raw KakaoTalk messages to web search or external APIs.
 - Use summarized search queries only.
 - Do not leave final recommendations as generic "nearby restaurant/cafe" labels when place research is available.
+- Analyze Naver Map, Naver Blog, Instagram public posts, and official pages as separate evidence channels when available.
+- Do not scrape private Instagram accounts or bypass login.
 - Redact or stop on passwords, OTPs, API keys, account numbers, resident registration numbers, or other secrets.
 - Treat the persona as a date-preference hypothesis, not a psychological or relationship judgment.
 
@@ -174,6 +177,7 @@ Expected:
 - Constraints include budget sensitivity, low walking, weather-safe/indoor, quiet/comfortable.
 - Location memory ranks `성수` and `한남` above overused/disliked `홍대`.
 - Concrete place candidates and reasons are included.
+- Place research includes source-channel status for Naver Map, Naver Blog, Instagram, and verification needs.
 - At least two date courses are generated.
 - Each course includes approval decision and score.
 - Overall approval rate is included.

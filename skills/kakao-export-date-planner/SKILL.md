@@ -143,7 +143,13 @@ Infer these from the chat first. Ask the user only if the value is necessary and
      - `성수 토요일 저녁 파스타 조용한 카페 데이트`
      - `성수 비오는 날 실내 데이트 영화 전시 카페`
    - Research place candidates, blog reviews, map snippets, official pages, menus, hours, reservation notes, and recent review tone.
+   - Source channels to analyze when available:
+     - Naver Map: current hours, map distance, visitor review tone, reservation/waiting hints, price/menu snippets
+     - Naver Blog: longer subjective reviews, date-course photos, sponsored-post risk, repeated pros/cons
+     - Instagram: public location/tag posts, recent visual atmosphere, crowding hints, photo suitability
+     - Official pages: opening hours, reservations, menus, notices
    - Treat blogs as subjective and possibly sponsored.
+   - Treat Instagram as visual/social evidence only; do not scrape private accounts or bypass login.
    - Do not claim exact hours, prices, availability, or ratings unless a current source supports it.
    - Cite sources when search was used.
    - If search is not allowed yet, output `Search Queries To Approve` so the user can approve one click/one message later.
@@ -154,6 +160,7 @@ Infer these from the chat first. Ask the user only if the value is necessary and
      - why it matches the chat/persona
      - one-line review/blog summary
      - source status: `live_verified`, `bundled_reference`, `provided`, or `needs_verification`
+     - source breakdown for Naver Map, Naver Blog, Instagram, and official pages when available
      - verification needed
 
 9. Generate date courses.
@@ -235,13 +242,13 @@ Return these sections:
 5. `Location Memory and Area Ranking`
 6. `Place Research Candidates`
 7. `Search Queries Used` if external search was allowed
-8. `Recommended Date Courses`
-9. `Persona Approval Review`
-10. `Approval Rate`
-11. `KakaoTalk Message Drafts`
-12. `Fast Reply Card`
-13. `Date Course Memory`
-14. `Search Tracking`
+8. `Search Tracking`
+9. `Recommended Date Courses`
+10. `Persona Approval Review`
+11. `Approval Rate`
+12. `KakaoTalk Message Drafts`
+13. `Fast Reply Card`
+14. `Date Course Memory`
 15. `Place/Blog Review One-liners`
 16. `Verification Needed`
 17. `JSON Summary` if requested
@@ -269,6 +276,7 @@ A run is successful if:
 - The user's message persona is based only on the user's own messages.
 - At least two time-aware courses are generated.
 - Course stops use concrete place names when search or bundled references are available.
+- Place candidates include Naver Map, Naver Blog, Instagram, or official-source status when available.
 - Each course has a persona approval decision and score.
 - The report includes an overall approval rate.
 - The report includes editable KakaoTalk message drafts.
