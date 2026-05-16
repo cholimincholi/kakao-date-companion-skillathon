@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-16T00:00:00.000Z",
+  "courses": [
+    {
+      "id": "토요일-성수-성수-비-오는-날-실내-중심-코스",
+      "title": "성수 비 오는 날 실내 중심 코스",
+      "status": "suggested",
+      "dateDay": "토요일",
+      "area": "성수",
+      "places": [
+        "연남토마 성수점",
+        "히어로보드게임카페 성수점",
+        "성수 비아트"
+      ],
+      "approvalScore": 100,
+      "approvalDecision": "approve",
+      "messageDraft": "토요일 17:00쯤 성수 ㄱㄱ? ㅋㅋ\n17:00 연남토마 성수점 → 19:20 히어로보드게임카페 성수점 → 21:00 성수 비아트\n이런 느낌이면 많이 안 걷고 괜찮을듯",
+      "firstSeenAt": "2026-05-16T00:00:00.000Z",
+      "lastUpdatedAt": "2026-05-16T00:00:00.000Z",
+      "notes": []
+    },
+    {
+      "id": "토요일-성수-성수-저녁-식사-+-카페-안정-코스",
+      "title": "성수 저녁 식사 + 카페 안정 코스",
+      "status": "suggested",
+      "dateDay": "토요일",
+      "area": "성수",
+      "places": [
+        "투파인드피터 서울성수점",
+        "성수 비아트",
+        "히어로보드게임카페 성수점"
+      ],
+      "approvalScore": 95,
+      "approvalDecision": "approve",
+      "messageDraft": "토요일 17:00쯤 성수 ㄱㄱ? ㅋㅋ\n17:00 연남토마 성수점 → 19:20 히어로보드게임카페 성수점 → 21:00 성수 비아트\n이런 느낌이면 많이 안 걷고 괜찮을듯",
+      "firstSeenAt": "2026-05-16T00:00:00.000Z",
+      "lastUpdatedAt": "2026-05-16T00:00:00.000Z",
+      "notes": []
+    }
+  ],
+  "places": {
+    "투파인드피터 서울성수점": {
+      "name": "투파인드피터 서울성수점",
+      "type": "restaurant",
+      "statuses": [
+        "candidate"
+      ],
+      "mentionCount": 1,
+      "lastSeenAt": "2026-05-16T00:00:00.000Z",
+      "sources": [
+        "https://www.diningcode.com/list.dc?query=%EC%84%B1%EC%88%98%EC%97%AD++%EC%A1%B0%EC%9A%A9%ED%95%9C+%EC%86%8C%EA%B0%9C%ED%8C%85",
+        "https://fd.jhsunjane.com/52"
+      ]
+    },
+    "연남토마 성수점": {
+      "name": "연남토마 성수점",
+      "type": "restaurant",
+      "statuses": [
+        "candidate"
+      ],
+      "mentionCount": 1,
+      "lastSeenAt": "2026-05-16T00:00:00.000Z",
+      "sources": [
+        "https://www.awesomble.com/ko/Aosdin/kr-seoul-seongsu-yeonnam-toma/"
+      ]
+    },
+    "성수 비아트": {
+      "name": "성수 비아트",
+      "type": "cafe",
+      "statuses": [
+        "candidate"
+      ],
+      "mentionCount": 1,
+      "lastSeenAt": "2026-05-16T00:00:00.000Z",
+      "sources": [
+        "https://euphoria25.tistory.com/137"
+      ]
+    },
+    "히어로보드게임카페 성수점": {
+      "name": "히어로보드게임카페 성수점",
+      "type": "indoor_activity",
+      "statuses": [
+        "candidate"
+      ],
+      "mentionCount": 1,
+      "lastSeenAt": "2026-05-16T00:00:00.000Z",
+      "sources": [
+        "https://ilovefood.tistory.com/v/174"
+      ]
+    }
+  }
+}

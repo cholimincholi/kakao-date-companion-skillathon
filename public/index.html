@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kakao Date Companion</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="shell">
+      <section class="header">
+        <div>
+          <p class="eyebrow">Consent-scoped PC KakaoTalk companion</p>
+          <h1>데이트 코스 자동 업데이트</h1>
+        </div>
+        <div class="status" id="status">연결 중</div>
+      </section>
+
+      <section class="consent-strip">
+        <div>
+          <span>승인 범위</span>
+          <strong id="approved-room">-</strong>
+        </div>
+        <div>
+          <span>입력 소스</span>
+          <strong id="approved-source">-</strong>
+        </div>
+        <div>
+          <span>저장 정책</span>
+          <strong id="retention-mode">-</strong>
+        </div>
+      </section>
+
+      <section class="grid">
+        <article class="panel">
+          <div class="panel-head">
+            <h2>데이트 브리프</h2>
+            <button id="demo-button" type="button">새 카톡 문장 추가</button>
+          </div>
+          <dl class="brief" id="brief"></dl>
+          <div class="reasoning" id="reasoning"></div>
+        </article>
+
+        <article class="panel">
+          <h2>추천 코스</h2>
+          <div class="courses" id="courses"></div>
+        </article>
+      </section>
+
+      <section class="panel">
+        <h2>검증 상태</h2>
+        <div class="verification" id="verification"></div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

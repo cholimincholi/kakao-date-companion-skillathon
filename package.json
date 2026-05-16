@@ -1,0 +1,13 @@
+{
+  "name": "kakao-date-companion",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Consent-scoped PC KakaoTalk companion MVP for time-aware date course updates.",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "start:ocr": "KAKAO_LIVE_OCR=1 node server.js",
+    "analyze:sample": "node export_analyzer.js --file=data/sample-kakao-export.txt --room=희영이 --external_search=ask_first --reply_mode=both --output=report.md --memory=data/date-memory.json --now=2026-05-16T00:00:00.000Z",
+    "watch:exports": "node watch_exports.js"
+  }
+}

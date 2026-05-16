@@ -1,0 +1,14 @@
+node_modules/
+.DS_Store
+
+# User-provided KakaoTalk exports should stay local.
+data/inbox/*.txt
+!data/inbox/.gitkeep
+
+# Generated watch-mode reports stay local; report.md is the committed sample output.
+data/reports/*
+!data/reports/.gitkeep
+
+# Local OCR screenshots or temporary files.
+*.png
+*.log
