@@ -198,7 +198,7 @@ Then place a `.txt` KakaoTalk export in `data/inbox`.
 
 - Real web/blog search is gated behind `external_search: allowed`; the sample run only generates search queries.
 - Place opening hours, prices, ratings, and reservation availability must be verified with current sources.
-- KakaoTalk real-time background reading is not part of the safe default Skill. PC OCR is included only as an optional extension demo.
+- KakaoTalk real-time background reading and screenshot analysis are intentionally out of scope. The submission is export-file based only.
 
 ## Extension Plan
 
@@ -206,4 +206,4 @@ Then place a `.txt` KakaoTalk export in `data/inbox`.
 - Add blog review source collection with citations.
 - Add weather-aware course filtering.
 - Add calendar/reminder export.
-- Add optional PC OCR companion mode for visible text only.
+- Add a safer user-triggered KakaoTalk export shortcut flow.

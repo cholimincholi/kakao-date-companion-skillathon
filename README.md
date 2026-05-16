@@ -1,112 +1,123 @@
-# Kakao Date Companion MVP
+# Kakao Export Date Planner
 
-승인된 PC 카카오톡 대화 소스만 처리한다는 가정의 Skillathon용 로컬 MVP입니다.
+Skillathon submission for a Codex Skill that turns a **user-approved KakaoTalk exported `.txt` file** into concrete date-course recommendations, persona-based approval scoring, and paste-ready KakaoTalk reply drafts.
 
-이 앱은 실제 카카오톡 내부 데이터베이스에 접근하지 않습니다. `data/approved-room.txt`를 승인된 PC 카톡 visible text/mock source로 보고, 5초마다 읽어서 데이트 관련 신호를 추출합니다.
+The safe default flow is export-based. This repo does **not** read KakaoTalk internal databases, does **not** use screen capture, and does **not** send messages automatically.
 
-## 실행
+## Submission Skill
 
-```bash
-npm start
-```
+- Main Skill: `skills/kakao-export-date-planner/SKILL.md`
+- Submission write-up: `SUBMISSION.md`
+- Sample report: `report.md`
+- Local date-course memory DB: `data/date-memory.json`
 
-브라우저에서 `http://localhost:4173`을 엽니다.
+## Consent Scope
 
-실제 PC 카카오톡 창 OCR을 켜려면 카카오톡 채팅방을 화면에 열어둔 뒤:
+Required input scope:
 
-```bash
-KAKAO_LIVE_OCR=1 npm start
-```
+- `chat_export_file`: a KakaoTalk `.txt` export provided by the user
+- `approved_contact_or_room`: the specific contact or chatroom the user approves for analysis
+- `planning_goal`: `date_course_recommendation`
 
-macOS에서 화면 기록 권한을 요청할 수 있습니다. 이 모드는 카카오톡 내부 DB를 읽지 않고, 사용자가 화면에 띄운 KakaoTalk 창을 캡처해 Vision OCR로 visible text만 분석합니다.
+The Skill processes only the approved export and approved contact/room. It stores course metadata, place candidates, scores, and message drafts, but it does **not** store raw KakaoTalk chat.
 
-## 데모 방법
+## Quick Verification
 
-1. 앱을 실행합니다.
-2. 화면에서 승인 범위가 `성수 데이트방`인지 확인합니다.
-3. `새 카톡 문장 추가`를 누르면 승인된 방의 새 메시지처럼 `data/approved-room.txt`에 문장이 추가됩니다.
-4. 앱이 5초 주기로 날짜, 시간대, 지역, 음식, 이동/날씨/예산 제약을 다시 분석하고 코스를 업데이트합니다.
-
-## Skill 품질 기준 반영
-
-- 재현성: mock input, required inputs, workflow, expected output을 `skills/consent-scoped-kakao-date-tracker/SKILL.md`에 명시했습니다.
-- 안전성: 승인된 방만 처리하고, 비밀값/OTP/계좌번호 감지 시 중단합니다.
-- 검증 가능성: UI의 검증 상태와 `/api/state` JSON에서 처리 범위, 불확실성, 다음 업데이트 조건을 확인할 수 있습니다.
-
-## 실제 제품화 시 연결 지점
-
-- PC 카톡 visible text OCR
-- OS 알림 로그
-- 사용자가 승인한 exported chat file watcher
-- 장소 API, 리뷰 API, 날씨 API
-
-외부 API로 원문 대화를 보내기 전에는 payload preview와 사용자 승인을 추가해야 합니다.
-
-## 카카오톡 내보내기 파일 분석 Skill
-
-`skills/kakao-export-date-planner/SKILL.md`는 사용자가 제공한 카카오톡 내보내기 파일을 기준으로 데이트 조건을 추론하고, 데이트 취향 페르소나와 코스 추천 리포트를 만드는 Skill입니다.
-
-로컬 mock 실행:
+Run the deterministic sample:
 
 ```bash
 npm run analyze:sample
 ```
 
-이 스크립트는 실제 웹 검색은 하지 않고, Skill이 사용할 검색 쿼리와 리포트 구조를 재현합니다. Codex가 이 Skill을 실제로 사용할 때 `external_search: allowed`가 있으면 원문이 아니라 요약된 조건만으로 웹/블로그 검색을 수행합니다.
+Expected outputs:
 
-## 덜 귀찮은 Export Inbox 모드
+- `report.md` is regenerated.
+- `data/date-memory.json` is updated.
+- The report extracts date/time/area/preferences from `data/sample-kakao-export.txt`.
+- It generates concrete places, approval scores, source-channel status, and paste-ready KakaoTalk message drafts.
 
-실시간 카카오톡 내부 접근 대신, 안전하고 재현 가능한 자동화 방식으로 `data/inbox` 폴더를 감시할 수 있습니다.
+## Export Inbox Mode
+
+To reduce user effort, run:
 
 ```bash
 npm run watch:exports
 ```
 
-그 다음 사용자는 카카오톡 내보내기 `.txt` 파일을 `data/inbox`에 넣기만 하면 됩니다. 앱은 최신 export 파일을 자동으로 분석하고 `data/reports/latest-report.md`와 `report.md`를 갱신합니다.
+Then place a user-approved KakaoTalk export `.txt` file in:
 
-이 방식은 사용자가 매번 날짜/예산/지역을 입력하지 않아도 대화에서 최대한 추론하므로, “내보내기 파일 기반”의 안전성은 유지하면서 개입은 줄입니다.
+```txt
+data/inbox
+```
 
-예를 들어 카톡에 `오빠 우리 다음주에 어디갈까? 뭐하고 싶어?`만 새로 생겨도, Skill은 이전 대화 기록에서 가본 곳/안 가본 곳/가보고 싶은 곳/멀거나 자주 간 곳을 찾아 지역 후보를 정렬합니다. 정보가 부족하면 바로 멈추지 않고 기본 후보를 만든 뒤, 정말 필요한 경우에만 짧은 질문을 남깁니다.
+The watcher picks the newest export, runs the Skill demo analyzer, and updates:
 
-리포트에는 사용자가 바로 카톡에 보낼 수 있는 메시지 초안도 포함됩니다. 자동 전송은 하지 않고, 사용자가 보고 수정해서 보내는 방식입니다.
+- `data/reports/latest-report.md`
+- `report.md`
 
-`reply_mode=both` 기준으로 리포트에는 `Fast Reply Card`도 포함됩니다. 이 카드는 사용자가 길게 읽지 않고 바로 카카오톡에 붙여넣을 수 있는 추천 메시지 하나와 짧은 버전을 제공합니다.
+This keeps the flow safe and reproducible while reducing the user action to: **export chat → drop file into inbox → paste suggested reply**.
 
-성수 샘플에는 `references/seongsu-place-research.md`의 번들 장소 리서치를 사용합니다. 따라서 샘플 코스도 `근처 식사`가 아니라 `투파인드피터 서울성수점`, `성수 비아트`, `히어로보드게임카페 성수점`처럼 구체적인 후보와 선정 이유를 포함합니다. 실제 사용 시에는 `external_search=allowed`로 최신 블로그/지도/공식 페이지 검증을 추가해야 합니다.
+## What The Skill Does
 
-장소 리서치는 소스 채널을 분리합니다.
+From the approved export, it infers:
 
-- 네이버 지도: 현재 영업시간, 거리, 방문자 리뷰, 예약/웨이팅, 메뉴/가격 확인
-- 네이버 블로그: 긴 후기, 데이트 맥락, 사진, 협찬 가능성, 반복 장단점 확인
-- 인스타그램: 공개 위치/태그 기반 최신 분위기, 사진 적합성, 혼잡 힌트 확인
-- 공식 페이지: 영업시간, 예약, 메뉴, 공지 확인
+- date and meeting time
+- area and travel hints
+- food/cafe/activity preferences
+- budget sensitivity
+- weather and walking constraints
+- visited/wanted/disliked areas
+- partner date persona
+- user message persona
 
-샘플 실행에서는 이 채널별 분석 상태를 `needs_live_verification` 또는 `bundled_reference`로 표시합니다.
+Then it produces:
 
-## 데이트 코스 DB
+- ranked area/place candidates
+- concrete date courses
+- Naver Map / Naver Blog / Instagram / official-page source status
+- Persona Judge approval score and approval rate
+- Fast Reply Card for KakaoTalk
+- persistent date-course memory updates
 
-분석을 실행하면 `data/date-memory.json`에 코스와 장소 후보가 누적됩니다.
+## Concrete Place Research
 
-저장하는 것:
+The sample uses `references/seongsu-place-research.md` as bundled reference data. Sample course stops are concrete places, not generic placeholders:
 
-- 코스 제목
-- 장소명
-- 지역
-- approval score
-- score history
-- suggested/selected/visited/liked/rejected 같은 상태
-- 사용한 메시지 초안
-- 요약된 페르소나 snapshot
-- 검색 쿼리 이력
+- `투파인드피터 서울성수점`
+- `연남토마 성수점`
+- `성수 비아트`
+- `히어로보드게임카페 성수점`
 
-저장하지 않는 것:
+For real usage, set `external_search=allowed` in a Codex run and verify current information through summarized queries only. Raw KakaoTalk text must not be sent to web search.
 
-- 카카오톡 원문
-- 민감 정보
-- 전체 대화 로그
+Source channels are separated:
 
-이 DB는 다음 추천에서 이미 제안한 코스, 자주 나온 장소, 거절/선호 상태를 반영하는 데 사용합니다. 새 export로 여친 페르소나가 업데이트되면 기존 코스 점수도 다시 계산하고, 이전 검색 쿼리/장소 후보를 재사용해 조사 시간을 줄입니다.
+- Naver Map: current hours, distance, visitor reviews, reservation/waiting, menu/price
+- Naver Blog: long-form reviews, date-course context, sponsorship risk, repeated pros/cons
+- Instagram: public location/tag atmosphere and photo/crowding hints only
+- Official pages: hours, reservations, menus, notices
 
-## 제출 문서
+## Date Course Memory DB
 
-최종 제출 설명은 `SUBMISSION.md`에 정리되어 있습니다.
+`data/date-memory.json` stores:
+
+- suggested courses
+- concrete places
+- approval scores and score history
+- course status such as `suggested`, `selected`, `visited`, `liked`, `rejected`
+- message draft used
+- summarized persona snapshots
+- summarized search query history
+
+It does not store raw chat. Future runs can reuse this DB to avoid repeating rejected/overused courses, rescore old courses against an updated partner persona, and shorten repeated place research.
+
+## Safety Guardrails
+
+- Analyze only user-provided KakaoTalk exports.
+- Process only the approved contact or room.
+- Do not access KakaoTalk internal files, encrypted databases, credentials, hidden messages, or screenshots.
+- Do not send raw KakaoTalk messages to external services.
+- Use summarized search queries only.
+- Do not scrape private Instagram accounts or bypass login.
+- Redact or stop on passwords, OTPs, API keys, account numbers, resident registration numbers, or secrets.
+- Message drafts are editable suggestions; the Skill never sends messages automatically.

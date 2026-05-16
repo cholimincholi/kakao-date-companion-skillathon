@@ -9,6 +9,6 @@ data/inbox/*.txt
 data/reports/*
 !data/reports/.gitkeep
 
-# Local OCR screenshots or temporary files.
+# Local screenshots or temporary files.
 *.png
 *.log
