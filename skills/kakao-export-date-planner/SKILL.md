@@ -329,7 +329,7 @@ Scoring guide:
 
 ```yaml
 chat_export_file: data/sample-kakao-export.txt
-approved_contact_or_room: 희영이
+approved_contact_or_room: 여자친구
 planning_goal: date_course_recommendation
 external_search: ask_first
 output_format: both

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="620" viewBox="0 0 520 620" role="img" aria-label="Skill을 사용해 데이트 코스를 제안하는 가상 예시">
+  <rect width="520" height="620" fill="#BFD3E6"/>
+  <rect width="520" height="58" fill="#AFC8DD"/>
+  <text x="26" y="38" font-size="22" font-weight="700" fill="#17212B">여자친구</text>
+  <text x="450" y="38" font-size="15" fill="#334">mock</text>
+  <text x="26" y="88" font-size="14" fill="#475866">가상 대화 예시 - 실제 개인정보 없음</text>
+
+  <text x="26" y="118" font-size="12" fill="#65717A">여자친구</text>
+  <rect x="26" y="128" width="330" height="54" rx="19" fill="#FFFFFF" stroke="#D9E0E5"/>
+  <text x="44" y="162" font-size="17" fill="#202124">오빠 우리 다음주에 어디 갈까?</text>
+
+  <rect x="26" y="212" width="468" height="104" rx="16" fill="#F5FAFF" stroke="#7EA6BF"/>
+  <text x="44" y="240" font-size="15" font-weight="700" fill="#1F3A4A">Skill Fast Reply Card</text>
+  <text x="44" y="266" font-size="15" fill="#1F3A4A">성수 저녁 코스 · approval rate 92%</text>
+  <text x="44" y="291" font-size="15" fill="#1F3A4A">17:00 이후 · 파스타 · 짧은 도보 · 조용한 카페</text>
+
+  <text x="168" y="350" font-size="12" fill="#65717A">나</text>
+  <rect x="168" y="360" width="326" height="132" rx="19" fill="#FEE500" stroke="#D9E0E5"/>
+  <text x="188" y="392" font-size="16" fill="#202124">토요일 17:00쯤 성수 ㄱㄱ? ㅋㅋ</text>
+  <text x="188" y="418" font-size="16" fill="#202124">연남토마 → 히어로보드게임카페</text>
+  <text x="188" y="444" font-size="16" fill="#202124">→ 성수 비아트 이런 느낌이면</text>
+  <text x="188" y="470" font-size="16" fill="#202124">많이 안 걷고 괜찮을듯</text>
+
+  <text x="26" y="528" font-size="12" fill="#65717A">여자친구</text>
+  <rect x="26" y="538" width="276" height="54" rx="19" fill="#FFFFFF" stroke="#D9E0E5"/>
+  <text x="44" y="572" font-size="17" fill="#202124">오 좋다. 그럼 성수로 가자</text>
+</svg>

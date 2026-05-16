@@ -4,7 +4,7 @@ import path from "node:path";
 
 const inboxDir = path.resolve("data/inbox");
 const reportsDir = path.resolve("data/reports");
-const room = process.env.APPROVED_ROOM || "희영이";
+const room = process.env.APPROVED_ROOM || "여자친구";
 const externalSearch = process.env.EXTERNAL_SEARCH || "ask_first";
 const intervalMs = Number(process.env.WATCH_INTERVAL_MS || 5000);
 

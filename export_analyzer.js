@@ -7,7 +7,7 @@ const args = Object.fromEntries(process.argv.slice(2).map((arg) => {
 }));
 
 const file = args.file || "data/sample-kakao-export.txt";
-const room = args.room || "희영이";
+const room = args.room || "여자친구";
 const externalSearch = args.external_search || "ask_first";
 const replyMode = args.reply_mode || "both";
 const output = args.output || "report.md";
@@ -235,15 +235,20 @@ function extract(text) {
   };
 }
 
-function speakerLines(text) {
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function speakerLines(text, partnerName) {
   const lines = text.split("\n");
   const mine = [];
   const partner = [];
+  const partnerPattern = new RegExp(`^${escapeRegExp(partnerName)}\\s*:\\s*`);
 
   for (const line of lines) {
     const trimmed = line.trim();
     if (trimmed.startsWith("나 :")) mine.push(trimmed.replace(/^나\s*:\s*/, ""));
-    if (trimmed.startsWith("희영이 :")) partner.push(trimmed.replace(/^희영이\s*:\s*/, ""));
+    if (partnerPattern.test(trimmed)) partner.push(trimmed.replace(partnerPattern, ""));
   }
 
   return { mine, partner };
@@ -715,7 +720,7 @@ const raw = await readFile(file, "utf8");
 const memory = ensureMemoryShape(await readMemory(memoryFile));
 const safeText = raw.replace(/(인증번호|비밀번호|password|api[_-]?key|계좌번호|주민등록).*/gi, "[REDACTED]");
 const signals = extract(safeText);
-const lines = speakerLines(safeText);
+const lines = speakerLines(safeText, room);
 const persona = buildPersona(signals, lines);
 const myPersona = buildMyPersona(lines);
 const rankedAreas = rankAreas(signals);

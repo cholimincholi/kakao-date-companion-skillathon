@@ -2,7 +2,7 @@
 
 ## Input Scope
 - chat_export_file: data/sample-kakao-export.txt
-- approved_contact_or_room: 희영이
+- approved_contact_or_room: 여자친구
 - external_search: ask_first
 - reply_mode: both
 - memory_file: data/date-memory.json
