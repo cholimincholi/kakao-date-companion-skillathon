@@ -88,15 +88,12 @@ function rememberCourses(memory, signals, rankedAreas, reviewedCourses, messageD
       searchQueries: buildSearchQueries(signals),
       firstSeenAt: seenAt,
       lastUpdatedAt: seenAt,
-      scoreHistory: [
-        ...(previous?.scoreHistory || []),
-        {
-          at: seenAt,
-          approvalScore: course.approval.approvalScore,
-          approvalDecision: course.approval.approvalDecision,
-          reason: "current_export_analysis"
-        }
-      ].slice(-10),
+      scoreHistory: upsertHistory(previous?.scoreHistory || [], {
+        at: seenAt,
+        approvalScore: course.approval.approvalScore,
+        approvalDecision: course.approval.approvalDecision,
+        reason: "current_export_analysis"
+      }).slice(-10),
       notes: previous?.notes || []
     };
 
@@ -110,7 +107,7 @@ function rememberCourses(memory, signals, rankedAreas, reviewedCourses, messageD
 }
 
 function rememberPersonaAndSearch(memory, persona, myPersona, queries, seenAt = new Date().toISOString()) {
-  memory.personaSnapshots.push({
+  const personaSnapshot = {
     at: seenAt,
     partnerConfidence: persona.confidence,
     partnerSummary: persona.summary,
@@ -118,13 +115,19 @@ function rememberPersonaAndSearch(memory, persona, myPersona, queries, seenAt = 
     myConfidence: myPersona.confidence,
     mySummary: myPersona.summary,
     myTone: myPersona.tone.traits
-  });
+  };
+  const existingSnapshot = memory.personaSnapshots.find((item) =>
+    item.at === personaSnapshot.at &&
+    item.partnerSummary === personaSnapshot.partnerSummary &&
+    item.mySummary === personaSnapshot.mySummary
+  );
+  if (!existingSnapshot) memory.personaSnapshots.push(personaSnapshot);
   memory.personaSnapshots = memory.personaSnapshots.slice(-10);
 
   for (const query of queries) {
     const existing = memory.searchHistory.find((item) => item.query === query);
     if (existing) {
-      existing.count += 1;
+      if (existing.lastUsedAt !== seenAt) existing.count += 1;
       existing.lastUsedAt = seenAt;
     } else {
       memory.searchHistory.push({
@@ -136,6 +139,15 @@ function rememberPersonaAndSearch(memory, persona, myPersona, queries, seenAt = 
     }
   }
   memory.searchHistory.sort((a, b) => b.lastUsedAt.localeCompare(a.lastUsedAt));
+}
+
+function upsertHistory(history, entry) {
+  const index = history.findIndex((item) => item.at === entry.at && item.reason === entry.reason);
+  if (index >= 0) {
+    history[index] = entry;
+    return history;
+  }
+  return [...history, entry];
 }
 
 function courseToEvaluationShape(course) {
@@ -156,15 +168,12 @@ function rescoreExistingMemory(memory, signals, persona, seenAt = new Date().toI
     course.approvalScore = evaluation.approvalScore;
     course.approvalDecision = evaluation.approvalDecision;
     course.lastRescoredAt = seenAt;
-    course.scoreHistory = [
-      ...(course.scoreHistory || []),
-      {
-        at: seenAt,
-        approvalScore: evaluation.approvalScore,
-        approvalDecision: evaluation.approvalDecision,
-        reason: "persona_update_rescore"
-      }
-    ].slice(-10);
+    course.scoreHistory = upsertHistory(course.scoreHistory || [], {
+      at: seenAt,
+      approvalScore: evaluation.approvalScore,
+      approvalDecision: evaluation.approvalDecision,
+      reason: "persona_update_rescore"
+    }).slice(-10);
     rescored.push({
       title: course.title,
       previousScore,
