@@ -1,34 +1,34 @@
-# Skillathon Submission: Kakao Export Date Planner
+# Skillathon 제출물: 카카오톡 Export 데이트 플래너
 
-## Skill Name
+## Skill 이름
 
 `kakao-export-date-planner`
 
-## One-line Summary
+## 한 줄 요약
 
-사용자가 제공한 카카오톡 내보내기 파일에서 데이트 조건을 추출하고, 데이트 취향 페르소나와 Persona Judge approval rate를 사용해 데이트 코스를 자동 추천하는 Skill입니다.
+사용자가 제공한 카카오톡 내보내기 파일에서 데이트 조건을 추출하고, 상대 데이트 페르소나와 Persona Judge approval rate를 사용해 데이트 코스와 카카오톡 답장 초안을 자동 생성하는 Skill입니다.
 
-## Problem
+## 해결하려는 문제
 
-데이트 코스를 정할 때 사용자는 이미 카카오톡에서 시간, 지역, 음식 취향, 예산 부담, 이동 제약을 많이 이야기합니다. 하지만 그 정보를 다시 정리하고, 장소를 찾고, 리뷰를 읽고, 코스를 조합하는 과정이 번거롭습니다.
+데이트 코스를 정할 때 사용자는 이미 카카오톡에서 시간, 지역, 음식 취향, 예산 부담, 이동 제약을 많이 이야기합니다. 하지만 그 정보를 다시 정리하고, 장소를 찾고, 리뷰를 읽고, 코스를 조합하는 과정은 번거롭습니다.
 
-이 Skill은 카카오톡 대화 export를 입력으로 받아 데이트 관련 맥락만 구조화하고, 사용자가 부족한 옵션을 직접 입력하지 않아도 대화에서 최대한 추론합니다.
+이 Skill은 카카오톡 export를 입력으로 받아 데이트 관련 맥락만 구조화합니다. 사용자가 날짜, 예산, 지역, 이동수단을 매번 입력하지 않아도 대화에서 최대한 추론하고, 정말 필요한 경우에만 짧게 질문합니다.
 
-## Target User
+## 대상 사용자
 
 - 연인과의 대화에서 데이트 코스 후보를 빠르게 만들고 싶은 사용자
 - 카카오톡 대화를 직접 붙여넣기보다 export 파일 또는 inbox 폴더 기반으로 자동 분석하고 싶은 사용자
-- Skillathon 평가 기준에 맞는 재현 가능하고 안전한 데모를 제출하려는 사용자
+- 재현 가능하고 안전한 Skillathon 제출물을 만들고 싶은 사용자
 
-## Input Contract
+## 입력 계약
 
-Required:
+필수 입력:
 
 - `chat_export_file`: 사용자가 제공한 카카오톡 `.txt` 내보내기 파일
 - `approved_contact_or_room`: 사용자가 분석을 승인한 상대 또는 채팅방
 - `planning_goal`: `date_course_recommendation`
 
-Optional, inferred first:
+선택 입력. 먼저 대화에서 추론합니다:
 
 - `date_window`
 - `target_area`
@@ -37,173 +37,174 @@ Optional, inferred first:
 - `avoid`
 - `external_search`: `allowed`, `ask_first`, `not_allowed`
 - `output_format`: `markdown`, `json`, `both`
+- `reply_mode`: `fast_reply`, `report`, `both`
 
-## Output Contract
+## 출력 계약
 
-The Skill produces:
+Skill은 다음을 생성합니다.
 
-- Input Scope
-- Extracted Date Signals
-- Partner Date Persona
-- User Message Persona
-- Missing Context and Assumptions
-- Search Queries Used or To Approve
-- Location Memory and Area Ranking
-- Place Research Candidates
-- Naver Map / Naver Blog / Instagram source status
-- Recommended Date Courses
+- 입력 범위
+- 추출한 데이트 신호
+- 상대 데이트 페르소나
+- 사용자 카톡 말투 페르소나
+- 부족한 맥락과 가정
+- 검색 쿼리 또는 승인 대기 쿼리
+- 위치 기억과 지역 정렬
+- 장소 리서치 후보
+- 네이버 지도 / 네이버 블로그 / 인스타그램 소스 상태
+- 추천 데이트 코스
 - Persona Approval Review
 - Approval Rate
-- KakaoTalk Message Drafts
+- 카카오톡 메시지 초안
 - Fast Reply Card
-- Date Course Memory
-- Verification Needed
-- JSON Summary
+- 데이트 코스 메모리
+- 검증 필요 항목
+- JSON 요약
 
-## Low-intervention Automation
+## 저개입 자동화
 
-The main reproducible mode is an export inbox:
+주요 재현 모드는 export inbox입니다.
 
-1. User exports KakaoTalk chat as `.txt`.
-2. User drops the file into `data/inbox`.
-3. `watch_exports.js` detects the newest export.
-4. `export_analyzer.js` generates `data/reports/latest-report.md`.
-5. `report.md` is updated for quick review.
+1. 사용자가 카카오톡 대화를 `.txt`로 내보냅니다.
+2. 사용자가 파일을 `data/inbox`에 넣습니다.
+3. `watch_exports.js`가 최신 export를 감지합니다.
+4. `export_analyzer.js`가 `data/reports/latest-report.md`를 생성합니다.
+5. `report.md`도 빠른 확인용으로 갱신됩니다.
 
-This keeps the submission safe and reproducible while reducing user involvement to one export/drop action.
+이 방식은 안전성과 재현성을 유지하면서 사용자 개입을 “export 파일 한 번 넣기” 수준으로 줄입니다.
 
-When the chat only says something broad like "오빠 우리 다음주에 어디갈까? 뭐하고 싶어?", the Skill should:
+예를 들어 대화에 “오빠 우리 다음주에 어디갈까? 뭐하고 싶어?”만 있어도 Skill은:
 
-1. Detect early date-planning intent.
-2. Extract `date_window=next_week`.
-3. Look back through the same export for visited/wanted/disliked areas and distance hints.
-4. Produce starter options if enough history exists.
-5. Ask only one short follow-up if the plan is blocked, usually "어느 동네에서 만날까요?" or "낮/저녁 중 언제가 좋아요?"
+1. 초기 데이트 계획 의도를 감지합니다.
+2. `date_window=next_week`로 추론합니다.
+3. 같은 export 안의 이전 대화에서 가본 곳, 가보고 싶은 곳, 싫어한 곳, 거리 힌트를 찾습니다.
+4. 충분한 기록이 있으면 바로 기본 후보를 만듭니다.
+5. 정말 막힐 때만 “어느 동네에서 만날까요?” 또는 “낮/저녁 중 언제가 좋아요?”처럼 한 가지를 묻습니다.
 
-## Persona Judge Flow
+## Persona Judge 흐름
 
-The Skill uses two logical agents:
+Skill은 논리적으로 두 agent 흐름을 사용합니다.
 
-- Planner Agent: extracts date signals, builds the dating-preference persona, and drafts course candidates.
-- Persona Judge Agent: evaluates each course using only the persona, extracted signals, and course details.
+- Planner Agent: 데이트 신호를 추출하고 상대 페르소나를 만든 뒤 코스 후보를 작성합니다.
+- Persona Judge Agent: 페르소나, 추출 신호, 코스 세부 정보만 사용해 코스를 평가합니다.
 
-The Judge returns:
+Judge는 다음을 반환합니다.
 
-- `approval_decision`: `approve`, `soft_approve`, or `disapprove`
+- `approval_decision`: `approve`, `soft_approve`, `disapprove`
 - `approval_score`: 0-100
 - `matched_preferences`
 - `concerns`
 - `recommended_adjustments`
 
-The final `approval_rate` is the average score across course options.
+최종 `approval_rate`는 코스별 점수 평균입니다.
 
-## Message Draft Flow
+## 메시지 초안 흐름
 
-After ranking courses, the Skill generates editable KakaoTalk message drafts:
+코스를 정렬한 뒤 Skill은 사용자가 직접 보낼 수 있는 카카오톡 메시지 초안을 만듭니다.
 
-- `short_casual`: quick "여기 어때?" proposal
-- `warm_explained`: explains why the course fits
-- `two_options`: gives the partner two choices
+- `short_casual`: 빠르게 “여기 어때?”라고 묻는 버전
+- `warm_explained`: 왜 이 코스가 맞는지 짧게 설명하는 버전
+- `two_options`: 상대가 고를 수 있게 후보 2개를 주는 버전
 
-The Skill must not send the message automatically. The user reviews, edits, and sends it manually.
+Skill은 메시지를 자동 전송하지 않습니다. 사용자가 보고 수정한 뒤 직접 보냅니다.
 
-Message drafts combine two personas:
+메시지 초안은 두 페르소나를 결합합니다.
 
-- Partner Persona: date preferences such as quiet places, low walking, budget sensitivity, time window, and disliked areas.
-- User Persona: the user's KakaoTalk proposal tone, for example short/casual, gentle/explained, choice-based, use of `ㅋㅋ`, `ㄱㄱ`, endings like `어때` or `좋을듯`, and average message length.
+- 상대 페르소나: 조용한 곳, 짧은 동선, 예산 민감도, 시간대, 싫어한 지역 등
+- 사용자 페르소나: 짧은 말투, 설명형 말투, 선택지 제안형, `ㅋㅋ`, `ㄱㄱ`, `어때`, `좋을듯` 같은 말끝과 평균 문장 길이
 
-The draft should sound like the user while respecting what the partner is likely to prefer.
+## Fast Reply 모드
 
-## Fast Reply Mode
+`reply_mode=fast_reply` 또는 `reply_mode=both`일 때 Skill은 한 번에 붙여넣을 메시지를 생성합니다.
 
-For the fastest user loop, the Skill supports `reply_mode=fast_reply` or `reply_mode=both`.
+“오빠 우리 다음주에 어디갈까? 뭐하고 싶어?” 같은 메시지가 들어오면 사용자가 직접 오래 고민하지 않도록:
 
-When a message like "오빠 우리 다음주에 어디갈까? 뭐하고 싶어?" appears, the Skill should not wait for the user to manually brainstorm. It should:
+1. 상대가 데이트 아이디어를 묻는 상황을 감지합니다.
+2. 위치 기억과 페르소나 근거를 조회합니다.
+3. 상위 코스 1개와 대안 1개를 고릅니다.
+4. 바로 붙여넣을 카카오톡 답장을 생성합니다.
+5. 사용자는 그 메시지를 붙여넣고 대화를 이어갑니다.
 
-1. Detect that the partner is asking for a date idea.
-2. Look back at location memory and persona evidence.
-3. Pick the top course and one fallback.
-4. Generate one best paste-ready KakaoTalk reply.
-5. Let the user paste it into the chat and continue the conversation.
+## 데이트 코스 DB
 
-This shortens the loop from "think → search → compare → write" to "export/drop → paste suggested reply".
+Skill은 `data/date-memory.json`에 가벼운 로컬 JSON DB를 유지합니다.
 
-## Date Course DB
+저장하는 것:
 
-The Skill maintains a lightweight local JSON DB at `data/date-memory.json`.
-
-It stores:
-
-- suggested courses
-- concrete places
-- approval scores
+- 추천한 코스
+- 구체 장소
+- approval score
 - approval score history
-- course status
-- message draft used
-- summarized persona snapshots
-- summarized search query history
-- first seen and last updated timestamps
+- 코스 상태
+- 사용한 메시지 초안
+- 요약된 페르소나 스냅샷
+- 요약된 검색 쿼리 이력
+- 처음 본 시각과 마지막 업데이트 시각
 
-It does not store raw KakaoTalk messages. The DB lets future runs avoid repeating rejected or overused places, reuse liked places when appropriate, re-score old courses against updated partner personas, and shorten future research by reusing previous query/place context.
+저장하지 않는 것:
 
-## Safety Rules
+- 카카오톡 원문
+- 전체 대화 로그
+- 민감 정보
 
-- Analyze only user-provided export files.
-- Process only the approved contact or room.
-- Do not access KakaoTalk internal databases, encrypted files, credentials, or hidden messages.
-- Do not send raw KakaoTalk messages to web search or external APIs.
-- Use summarized search queries only.
-- Do not leave final recommendations as generic "nearby restaurant/cafe" labels when place research is available.
-- Analyze Naver Map, Naver Blog, Instagram public posts, and official pages as separate evidence channels when available.
-- Do not scrape private Instagram accounts or bypass login.
-- Redact or stop on passwords, OTPs, API keys, account numbers, resident registration numbers, or other secrets.
-- Treat the persona as a date-preference hypothesis, not a psychological or relationship judgment.
+이 DB는 다음 실행에서 거절했거나 너무 자주 나온 장소를 피하고, 좋아했던 장소를 재사용하며, 업데이트된 상대 페르소나 기준으로 기존 코스를 다시 점수화하고, 이전 검색/장소 맥락을 재사용해 조사 시간을 줄이는 데 사용합니다.
 
-## Verification
+## 안전 규칙
 
-Run:
+- 사용자가 제공한 export 파일만 분석합니다.
+- 승인된 상대 또는 채팅방만 처리합니다.
+- 카카오톡 내부 DB, 암호화 파일, 자격증명, 숨겨진 메시지에 접근하지 않습니다.
+- 카카오톡 원문을 웹 검색이나 외부 API로 보내지 않습니다.
+- 요약된 검색어만 사용합니다.
+- 장소 리서치가 가능하면 `근처 식당/카페` 같은 추상 표현으로 끝내지 않습니다.
+- 네이버 지도, 네이버 블로그, 인스타그램 공개 게시물, 공식 페이지를 별도 근거 채널로 봅니다.
+- 비공개 인스타그램 계정을 스크래핑하거나 로그인을 우회하지 않습니다.
+- 비밀번호, OTP, API key, 계좌번호, 주민등록번호 등 민감 정보가 있으면 중단하거나 삭제합니다.
+- 페르소나는 데이트 추천용 가설이며 심리, 관계 상태, 건강, 재정 상태를 단정하지 않습니다.
+
+## 검증 방법
 
 ```bash
 npm run analyze:sample
 ```
 
-Expected:
+기대 결과:
 
-- `report.md` is generated.
-- Date is extracted as `토요일`.
-- Meeting time is extracted as `17:00`.
-- Area is extracted as `성수`.
-- Food/place preferences include `파스타`, `카페`.
-- Constraints include budget sensitivity, low walking, weather-safe/indoor, quiet/comfortable.
-- Location memory ranks `성수` and `한남` above overused/disliked `홍대`.
-- Concrete place candidates and reasons are included.
-- Place research includes source-channel status for Naver Map, Naver Blog, Instagram, and verification needs.
-- At least two date courses are generated.
-- Each course includes approval decision and score.
-- Overall approval rate is included.
-- Editable KakaoTalk message drafts are included.
-- Date course memory is updated without raw chat.
-- Existing course scores are updated from the latest partner persona.
-- Search/query history is summarized for future runs.
+- `report.md`가 생성됩니다.
+- 날짜가 `토요일`로 추출됩니다.
+- 만나는 시간이 `17:00`으로 추출됩니다.
+- 지역이 `성수`로 추출됩니다.
+- 음식/장소 선호에 `파스타`, `카페`가 포함됩니다.
+- 제약에 예산 민감도, 낮은 도보 부담, 비/실내, 조용하고 편한 장소가 포함됩니다.
+- 위치 기억에서 `성수`, `한남`이 `홍대`보다 높게 정렬됩니다.
+- 구체 장소 후보와 선정 이유가 포함됩니다.
+- 장소 리서치에 네이버 지도, 네이버 블로그, 인스타그램 소스 상태와 검증 필요 항목이 포함됩니다.
+- 최소 2개 이상의 코스가 생성됩니다.
+- 각 코스에 approval decision과 score가 있습니다.
+- 전체 approval rate가 포함됩니다.
+- 수정 가능한 카카오톡 메시지 초안이 포함됩니다.
+- 카카오톡 원문 없이 데이트 코스 메모리가 업데이트됩니다.
+- 최신 상대 페르소나 기준으로 기존 코스 점수가 다시 계산됩니다.
+- 검색/쿼리 이력이 요약됩니다.
 
-Watch mode:
+watch 모드:
 
 ```bash
 npm run watch:exports
 ```
 
-Then place a `.txt` KakaoTalk export in `data/inbox`.
+그 다음 카카오톡 export `.txt` 파일을 `data/inbox`에 넣습니다.
 
-## Current Limitations
+## 현재 한계
 
-- Real web/blog search is gated behind `external_search: allowed`; the sample run only generates search queries.
-- Place opening hours, prices, ratings, and reservation availability must be verified with current sources.
-- KakaoTalk real-time background reading and screenshot analysis are intentionally out of scope. The submission is export-file based only.
+- 실제 웹/블로그 검색은 `external_search=allowed`일 때 수행합니다. 샘플 실행은 검색 쿼리와 번들 reference를 사용합니다.
+- 영업시간, 가격, 평점, 예약 가능 여부는 최신 출처로 검증해야 합니다.
+- 카카오톡 실시간 백그라운드 읽기와 화면 분석은 의도적으로 범위 밖입니다. 이 제출물은 export 파일 기반입니다.
 
-## Extension Plan
+## 확장 계획
 
-- Add official map/place API integration.
-- Add blog review source collection with citations.
-- Add weather-aware course filtering.
-- Add calendar/reminder export.
-- Add a safer user-triggered KakaoTalk export shortcut flow.
+- 공식 지도/장소 API 연동
+- 출처가 있는 블로그 리뷰 수집
+- 날씨 기반 코스 필터링
+- 캘린더/리마인더 export
+- 사용자가 직접 실행하는 카카오톡 내보내기 단축 루틴

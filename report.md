@@ -121,9 +121,9 @@
 ## Search Tracking
 - unique_queries_in_db: 3
 - recent_queries:
-  - 성수 저녁 파스타 조용한 카페 데이트 (count 3, last 2026-05-16T00:00:00.000Z)
-  - 성수 비오는 날 실내 데이트 블로그 리뷰 (count 3, last 2026-05-16T00:00:00.000Z)
-  - 성수 역 근처 파스타 예약 데이트 (count 3, last 2026-05-16T00:00:00.000Z)
+  - 성수 저녁 파스타 조용한 카페 데이트 (count 4, last 2026-05-16T00:00:00.000Z)
+  - 성수 비오는 날 실내 데이트 블로그 리뷰 (count 4, last 2026-05-16T00:00:00.000Z)
+  - 성수 역 근처 파스타 예약 데이트 (count 4, last 2026-05-16T00:00:00.000Z)
 
 ## Recommended Date Courses
 ### 1. 성수 비 오는 날 실내 중심 코스
@@ -244,7 +244,7 @@
 - memory_file: data/date-memory.json
 - remembered_courses: 2
 - remembered_places: 4
-- persona_snapshots: 3
+- persona_snapshots: 4
 - latest_course_statuses:
   - 성수 비 오는 날 실내 중심 코스: suggested, score 100, places 연남토마 성수점 / 히어로보드게임카페 성수점 / 성수 비아트
   - 성수 저녁 식사 + 카페 안정 코스: suggested, score 95, places 투파인드피터 서울성수점 / 성수 비아트 / 히어로보드게임카페 성수점
@@ -623,6 +623,18 @@
             "approvalScore": 100,
             "approvalDecision": "approve",
             "reason": "current_export_analysis"
+          },
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 100,
+            "approvalDecision": "approve",
+            "reason": "persona_update_rescore"
+          },
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 100,
+            "approvalDecision": "approve",
+            "reason": "current_export_analysis"
           }
         ],
         "searchQueries": [
@@ -650,6 +662,18 @@
         "notes": [],
         "lastRescoredAt": "2026-05-16T00:00:00.000Z",
         "scoreHistory": [
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 100,
+            "approvalDecision": "approve",
+            "reason": "persona_update_rescore"
+          },
+          {
+            "at": "2026-05-16T00:00:00.000Z",
+            "approvalScore": 95,
+            "approvalDecision": "approve",
+            "reason": "current_export_analysis"
+          },
           {
             "at": "2026-05-16T00:00:00.000Z",
             "approvalScore": 100,
@@ -799,24 +823,42 @@
           "캐주얼하고 짧은 톤",
           "짧은 문장 선호"
         ]
+      },
+      {
+        "at": "2026-05-16T00:00:00.000Z",
+        "partnerConfidence": "medium_high",
+        "partnerSummary": "조용하고 좌석이 편한 장소를 선호할 가능성이 높음; 긴 도보 이동보다 역 근처의 짧은 동선을 선호함; 가격 부담이 큰 장소는 피하고 중저가 선택지를 선호함; 오후 늦게 또는 저녁 중심의 데이트가 현재 일정에 맞음; 파스타, 카페 관련 장소에 반응이 좋음",
+        "partnerTone": [
+          "부드러운 동의 표현 사용",
+          "부담을 낮추는 표현 선호"
+        ],
+        "myConfidence": "medium_high",
+        "mySummary": "먼저 후보를 열어두고 묻는 편; 식사와 카페처럼 간단한 흐름으로 제안; 상황 변수를 챙기는 편",
+        "myTone": [
+          "상대 의견을 묻는 제안형",
+          "부드러운 동의 표현 사용",
+          "부담을 낮추는 표현 선호",
+          "캐주얼하고 짧은 톤",
+          "짧은 문장 선호"
+        ]
       }
     ],
     "searchHistory": [
       {
         "query": "성수 저녁 파스타 조용한 카페 데이트",
-        "count": 3,
+        "count": 4,
         "firstUsedAt": "2026-05-16T00:00:00.000Z",
         "lastUsedAt": "2026-05-16T00:00:00.000Z"
       },
       {
         "query": "성수 비오는 날 실내 데이트 블로그 리뷰",
-        "count": 3,
+        "count": 4,
         "firstUsedAt": "2026-05-16T00:00:00.000Z",
         "lastUsedAt": "2026-05-16T00:00:00.000Z"
       },
       {
         "query": "성수 역 근처 파스타 예약 데이트",
-        "count": 3,
+        "count": 4,
         "firstUsedAt": "2026-05-16T00:00:00.000Z",
         "lastUsedAt": "2026-05-16T00:00:00.000Z"
       }
