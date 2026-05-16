@@ -125,11 +125,16 @@ Infer these from the chat first. Ask the user only if the value is necessary and
      - area
      - date/day
      - approval score
+     - score history
      - status: `candidate`, `suggested`, `selected`, `visited`, `liked`, `rejected`, or `avoid`
      - message draft used
+     - persona snapshot
+     - summarized search query history
      - notes
    - Use memory to avoid repeatedly suggesting rejected or overused courses.
    - Allow liked or explicitly requested places to be resurfaced.
+   - When a new export changes the partner persona, re-score existing courses against the updated persona.
+   - Reuse previous search queries and place candidates to shorten future research.
    - Do not store raw KakaoTalk messages in memory.
 
 8. External place and blog research.
@@ -209,8 +214,10 @@ Infer these from the chat first. Ask the user only if the value is necessary and
 
 13. Update date course memory.
    - Store generated course summaries and place candidates in the local memory DB.
+   - Store a summarized persona snapshot and search query history.
+   - Re-score previously remembered courses when the partner persona changes.
    - Do not store raw KakaoTalk messages.
-   - Keep enough metadata to support future ranking, deduplication, and status updates.
+   - Keep enough metadata to support future ranking, deduplication, search shortening, and status updates.
 
 14. Output the report.
    - Provide Markdown for human review.
@@ -234,9 +241,10 @@ Return these sections:
 11. `KakaoTalk Message Drafts`
 12. `Fast Reply Card`
 13. `Date Course Memory`
-14. `Place/Blog Review One-liners`
-15. `Verification Needed`
-16. `JSON Summary` if requested
+14. `Search Tracking`
+15. `Place/Blog Review One-liners`
+16. `Verification Needed`
+17. `JSON Summary` if requested
 
 ## Stop Conditions
 
@@ -266,6 +274,8 @@ A run is successful if:
 - The report includes editable KakaoTalk message drafts.
 - `fast_reply` mode includes a single best paste-ready message.
 - Course and place memory is updated without storing raw chat.
+- Existing course scores are refreshed when the partner persona changes.
+- Search history is summarized so future research can avoid repeating the same work.
 - Blog/review claims are labeled with source status.
 - Assumptions and verification-needed items are visible.
 

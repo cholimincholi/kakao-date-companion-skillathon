@@ -136,11 +136,14 @@ It stores:
 - suggested courses
 - concrete places
 - approval scores
+- approval score history
 - course status
 - message draft used
+- summarized persona snapshots
+- summarized search query history
 - first seen and last updated timestamps
 
-It does not store raw KakaoTalk messages. The DB lets future runs avoid repeating rejected or overused places and reuse liked places when appropriate.
+It does not store raw KakaoTalk messages. The DB lets future runs avoid repeating rejected or overused places, reuse liked places when appropriate, re-score old courses against updated partner personas, and shorten future research by reusing previous query/place context.
 
 ## Safety Rules
 
@@ -176,6 +179,8 @@ Expected:
 - Overall approval rate is included.
 - Editable KakaoTalk message drafts are included.
 - Date course memory is updated without raw chat.
+- Existing course scores are updated from the latest partner persona.
+- Search/query history is summarized for future runs.
 
 Watch mode:
 

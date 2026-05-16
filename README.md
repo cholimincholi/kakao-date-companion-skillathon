@@ -84,8 +84,11 @@ npm run watch:exports
 - 장소명
 - 지역
 - approval score
+- score history
 - suggested/selected/visited/liked/rejected 같은 상태
 - 사용한 메시지 초안
+- 요약된 페르소나 snapshot
+- 검색 쿼리 이력
 
 저장하지 않는 것:
 
@@ -93,7 +96,7 @@ npm run watch:exports
 - 민감 정보
 - 전체 대화 로그
 
-이 DB는 다음 추천에서 이미 제안한 코스, 자주 나온 장소, 거절/선호 상태를 반영하는 데 사용합니다.
+이 DB는 다음 추천에서 이미 제안한 코스, 자주 나온 장소, 거절/선호 상태를 반영하는 데 사용합니다. 새 export로 여친 페르소나가 업데이트되면 기존 코스 점수도 다시 계산하고, 이전 검색 쿼리/장소 후보를 재사용해 조사 시간을 줄입니다.
 
 ## 제출 문서
 

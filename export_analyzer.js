@@ -29,10 +29,21 @@ async function readMemory(filePath) {
     return {
       version: 1,
       updatedAt: null,
+      personaSnapshots: [],
+      searchHistory: [],
       courses: [],
       places: {}
     };
   }
+}
+
+function ensureMemoryShape(memory) {
+  memory.version = memory.version || 1;
+  memory.personaSnapshots = memory.personaSnapshots || [];
+  memory.searchHistory = memory.searchHistory || [];
+  memory.courses = memory.courses || [];
+  memory.places = memory.places || {};
+  return memory;
 }
 
 async function writeMemory(filePath, memory) {
@@ -74,8 +85,18 @@ function rememberCourses(memory, signals, rankedAreas, reviewedCourses, messageD
       approvalScore: course.approval.approvalScore,
       approvalDecision: course.approval.approvalDecision,
       messageDraft: messageDrafts[0]?.text || "",
+      searchQueries: buildSearchQueries(signals),
       firstSeenAt: seenAt,
       lastUpdatedAt: seenAt,
+      scoreHistory: [
+        ...(previous?.scoreHistory || []),
+        {
+          at: seenAt,
+          approvalScore: course.approval.approvalScore,
+          approvalDecision: course.approval.approvalDecision,
+          reason: "current_export_analysis"
+        }
+      ].slice(-10),
       notes: previous?.notes || []
     };
 
@@ -86,6 +107,73 @@ function rememberCourses(memory, signals, rankedAreas, reviewedCourses, messageD
   memory.updatedAt = seenAt;
   memory.courses.sort((a, b) => b.approvalScore - a.approvalScore);
   return memory;
+}
+
+function rememberPersonaAndSearch(memory, persona, myPersona, queries, seenAt = new Date().toISOString()) {
+  memory.personaSnapshots.push({
+    at: seenAt,
+    partnerConfidence: persona.confidence,
+    partnerSummary: persona.summary,
+    partnerTone: persona.tone.traits,
+    myConfidence: myPersona.confidence,
+    mySummary: myPersona.summary,
+    myTone: myPersona.tone.traits
+  });
+  memory.personaSnapshots = memory.personaSnapshots.slice(-10);
+
+  for (const query of queries) {
+    const existing = memory.searchHistory.find((item) => item.query === query);
+    if (existing) {
+      existing.count += 1;
+      existing.lastUsedAt = seenAt;
+    } else {
+      memory.searchHistory.push({
+        query,
+        count: 1,
+        firstUsedAt: seenAt,
+        lastUsedAt: seenAt
+      });
+    }
+  }
+  memory.searchHistory.sort((a, b) => b.lastUsedAt.localeCompare(a.lastUsedAt));
+}
+
+function courseToEvaluationShape(course) {
+  return {
+    title: course.title,
+    schedule: course.places.map((place, index) => `${index === 0 ? "17:00" : index === 1 ? "19:00" : "20:00"} ${place}`),
+    cost: "중간",
+    travel: "낮음",
+    verificationNeeded: ["memory_based_recheck_needed"]
+  };
+}
+
+function rescoreExistingMemory(memory, signals, persona, seenAt = new Date().toISOString()) {
+  const rescored = [];
+  for (const course of memory.courses) {
+    const evaluation = evaluateCourse(signals, persona, courseToEvaluationShape(course));
+    const previousScore = course.approvalScore;
+    course.approvalScore = evaluation.approvalScore;
+    course.approvalDecision = evaluation.approvalDecision;
+    course.lastRescoredAt = seenAt;
+    course.scoreHistory = [
+      ...(course.scoreHistory || []),
+      {
+        at: seenAt,
+        approvalScore: evaluation.approvalScore,
+        approvalDecision: evaluation.approvalDecision,
+        reason: "persona_update_rescore"
+      }
+    ].slice(-10);
+    rescored.push({
+      title: course.title,
+      previousScore,
+      newScore: evaluation.approvalScore,
+      decision: evaluation.approvalDecision
+    });
+  }
+  memory.courses.sort((a, b) => b.approvalScore - a.approvalScore);
+  return rescored;
 }
 
 function extract(text) {
@@ -585,7 +673,7 @@ function evaluateCourse(signals, persona, course) {
 }
 
 const raw = await readFile(file, "utf8");
-const memory = await readMemory(memoryFile);
+const memory = ensureMemoryShape(await readMemory(memoryFile));
 const safeText = raw.replace(/(인증번호|비밀번호|password|api[_-]?key|계좌번호|주민등록).*/gi, "[REDACTED]");
 const signals = extract(safeText);
 const lines = speakerLines(safeText);
@@ -594,12 +682,14 @@ const myPersona = buildMyPersona(lines);
 const rankedAreas = rankAreas(signals);
 const placeResearch = researchPlaces(signals, rankedAreas, externalSearch, memory);
 const queries = buildSearchQueries(signals);
+const rescoredMemory = rescoreExistingMemory(memory, signals, persona, runAt);
 const courses = buildCourses(signals, persona, placeResearch);
 const reviewedCourses = courses
   .map((course) => ({ ...course, approval: evaluateCourse(signals, persona, course) }))
   .sort((a, b) => b.approval.approvalScore - a.approval.approvalScore);
 const messageDrafts = buildMessageDrafts(reviewedCourses, signals, rankedAreas, persona, myPersona);
 const fastReplyCard = buildFastReplyCard(reviewedCourses, messageDrafts);
+rememberPersonaAndSearch(memory, persona, myPersona, queries, runAt);
 for (const place of [...placeResearch.restaurants, ...placeResearch.cafes, ...placeResearch.activities]) {
   upsertPlace(memory, place, "candidate", runAt);
 }
@@ -690,6 +780,11 @@ ${placeResearch.activities.map((place) => `- ${place.name}
 ## Search Queries ${externalSearch === "allowed" ? "Used" : "To Approve"}
 ${queries.map((query) => `- ${query}`).join("\n")}
 
+## Search Tracking
+- unique_queries_in_db: ${memory.searchHistory.length}
+- recent_queries:
+${memory.searchHistory.slice(0, 5).map((item) => `  - ${item.query} (count ${item.count}, last ${item.lastUsedAt})`).join("\n")}
+
 ## Recommended Date Courses
 ${reviewedCourses.map((course, index) => `### ${index + 1}. ${course.title}
 - 일정: ${course.schedule.join(" → ")}
@@ -738,8 +833,11 @@ ${draft.text.split("\n").map((line) => `  ${line}`).join("\n")}
 - memory_file: ${memoryFile}
 - remembered_courses: ${memory.courses.length}
 - remembered_places: ${Object.keys(memory.places).length}
+- persona_snapshots: ${memory.personaSnapshots.length}
 - latest_course_statuses:
 ${memory.courses.slice(0, 5).map((course) => `  - ${course.title}: ${course.status}, score ${course.approvalScore}, places ${course.places.join(" / ")}`).join("\n")}
+- rescored_existing_courses:
+${rescoredMemory.length ? rescoredMemory.slice(0, 5).map((course) => `  - ${course.title}: ${course.previousScore} -> ${course.newScore} (${course.decision})`).join("\n") : "  - none"}
 
 ## Verification Needed
 - 외부 검색 허용 후 실제 블로그/지도/공식 페이지로 장소 후보 검증
@@ -748,7 +846,7 @@ ${memory.courses.slice(0, 5).map((course) => `  - ${course.title}: ${course.stat
 
 ## JSON Summary
 \`\`\`json
-${JSON.stringify({ signals, rankedAreas, placeResearch, partnerPersona: persona, myPersona, approvalRate, messageDrafts, fastReplyCard, dateMemory: memory, courses: reviewedCourses }, null, 2)}
+${JSON.stringify({ signals, rankedAreas, placeResearch, partnerPersona: persona, myPersona, approvalRate, messageDrafts, fastReplyCard, rescoredMemory, dateMemory: memory, courses: reviewedCourses }, null, 2)}
 \`\`\`
 `;
 
